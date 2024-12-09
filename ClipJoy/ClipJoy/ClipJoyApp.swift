@@ -11,7 +11,7 @@ import SwiftUI
 struct ClipJoyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ReelsFeedView()
         }
     }
 }
