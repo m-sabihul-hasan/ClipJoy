@@ -24,26 +24,27 @@ struct ReelsFeedView: View {
                 .tabViewStyle(.page(indexDisplayMode: .never))
 
                 VStack {
-                    Spacer()
                     HStack {
                         Spacer()
                         Button(action: {
                             isPickerPresented = true
                         }) {
-                            Image(systemName: "plus.circle.fill")
-                                .font(.system(size: 44))
+                            Image(systemName: "plus")
+                                .font(.system(size: 30))
                                 .foregroundColor(.white)
-                                .shadow(radius: 10)
+//                                .shadow(radius: 10)
                                 .padding()
                         }
                     }
+                    Spacer()
                 }
             }
+            .background(Color.black)
             .navigationBarHidden(true)
             .sheet(isPresented: $isPickerPresented) {
                 VideoPickerView { selectedURL in
                     if let url = selectedURL {
-                        let newReel = Reel(videoURL: url, caption: "New Reel", username: "@username")
+                        let newReel = Reel(videoURL: url, caption: "New Reel", username: "@just.sabih")
                         viewModel.addReel(newReel)
                     }
                 }

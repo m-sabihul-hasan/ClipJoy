@@ -58,6 +58,7 @@ struct ReelPlayerView: View {
         .onDisappear {
             player = nil
         }
+        .ignoresSafeArea()
     }
 }
 
@@ -65,6 +66,6 @@ struct ReelPlayerView: View {
     ReelPlayerView(reel: Reel(
         videoURL: URL(string: "https://example.com/sample-video.mp4")!, // Replace with a valid URL
         caption: "Sample Caption",
-        username: "@sampleuser"
+        username: "@just.sabih"
     ))
 }
