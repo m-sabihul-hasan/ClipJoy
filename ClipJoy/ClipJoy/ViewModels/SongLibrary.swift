@@ -5,6 +5,8 @@
 //  Created by Muhammad Sabihul Hasan on 17/12/24.
 //
 
+import Foundation
+import SwiftUI
 
 class SongLibrary: ObservableObject {
     @Published var songs: [Song] = []
@@ -15,14 +17,15 @@ class SongLibrary: ObservableObject {
     }
 
     private func loadDefaultSongs() {
-        // Suppose we know the filenames in advance
-        let defaultFilenames = ["track1", "track2", "track3"]
+        // Assume you know the filenames or have a predefined list
+        let karaokeFilenames = ["Pompeii", "Light Switch", "Sara Perche Ti Amo"]
         
-        for filename in defaultFilenames {
+        for filename in karaokeFilenames {
             if let url = Bundle.main.url(forResource: filename, withExtension: "mp3") {
-                let simpleTitle = filename.capitalized  // or any logic to produce a display name
-                let song = Song(title: simpleTitle, fileURL: url, isDefault: true)
+                let song = Song(title: filename.capitalized, fileURL: url, isDefault: true)
                 songs.append(song)
+            } else {
+                print("Could not find \(filename).mp3 in KaraokeSongs folder.")
             }
         }
     }

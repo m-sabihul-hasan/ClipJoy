@@ -10,9 +10,22 @@
 		26AB34372D07067000FC2664 /* ClipJoy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClipJoy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		266356EC2D11789D00F2BA51 /* Exceptions for "ClipJoy" folder in "ClipJoy" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 26AB34362D07067000FC2664 /* ClipJoy */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		26AB34392D07067000FC2664 /* ClipJoy */ = {
+		266356E02D11789D00F2BA51 /* ClipJoy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				266356EC2D11789D00F2BA51 /* Exceptions for "ClipJoy" folder in "ClipJoy" target */,
+			);
 			path = ClipJoy;
 			sourceTree = "<group>";
 		};
@@ -32,7 +45,7 @@
 		26AB342E2D07067000FC2664 = {
 			isa = PBXGroup;
 			children = (
-				26AB34392D07067000FC2664 /* ClipJoy */,
+				266356E02D11789D00F2BA51 /* ClipJoy */,
 				26AB34382D07067000FC2664 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,7 +74,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				26AB34392D07067000FC2664 /* ClipJoy */,
+				266356E02D11789D00F2BA51 /* ClipJoy */,
 			);
 			name = ClipJoy;
 			packageProductDependencies = (
@@ -255,6 +268,10 @@
 				DEVELOPMENT_TEAM = CR369Y47K3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ClipJoy/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera to record video.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to the microphone to record audio.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to save the video to your Photos Library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -284,6 +301,10 @@
 				DEVELOPMENT_TEAM = CR369Y47K3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ClipJoy/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera to record video.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to the microphone to record audio.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to save the video to your Photos Library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

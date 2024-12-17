@@ -1,18 +1,28 @@
+//
+//  AudioPlayer.swift
+//  ClipJoy
+//
+//  Created by Muhammad Sabihul Hasan on 17/12/24.
+//
+
 import AVFoundation
 
 class AudioPlayer: ObservableObject {
-    private var player: AVAudioPlayer?
+    var player: AVPlayer?
+    private var currentURL: URL?
 
-    func play(url: URL) {
-        do {
-            player = try AVAudioPlayer(contentsOf: url)
-            player?.play()
-        } catch {
-            print("Could not play audio: \(error)")
+    func load(url: URL) {
+        if currentURL != url {
+            player = AVPlayer(url: url)
+            currentURL = url
         }
     }
 
-    func stop() {
-        player?.stop()
+    func play() {
+        player?.play()
+    }
+
+    func pause() {
+        player?.pause()
     }
 }

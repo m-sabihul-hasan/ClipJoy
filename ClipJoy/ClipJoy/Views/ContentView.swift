@@ -1,3 +1,13 @@
+//
+//  ContentView.swift
+//  ClipJoy
+//
+//  Created by Muhammad Sabihul Hasan on 17/12/24.
+//
+
+import SwiftUI
+import AVFoundation
+
 struct ContentView: View {
     @StateObject var library = SongLibrary()
     @State private var showingImporter = false
@@ -7,8 +17,14 @@ struct ContentView: View {
             List(library.songs) { song in
                 Text(song.title)
             }
-            .navigationTitle("My Songs")
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    HStack {
+                        Image(systemName: "music.note.list")
+                        Text("My Songs")
+                            .font(.headline)
+                    }
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         showingImporter = true
@@ -18,13 +34,13 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showingImporter) {
-                // Same SongImporter as before
                 SongImporter { selectedURL in
                     if let url = selectedURL {
                         addUserSong(from: url, to: library)
                     }
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 
@@ -32,6 +48,17 @@ struct ContentView: View {
         let fileManager = FileManager.default
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
         let newFileURL = documentsURL.appendingPathComponent(sourceURL.lastPathComponent)
+
+        // Start accessing the security-scoped resource
+        guard sourceURL.startAccessingSecurityScopedResource() else {
+            print("Failed to start accessing security scoped resource.")
+            return
+        }
+
+        defer {
+            // Make sure to stop accessing after the operation is complete
+            sourceURL.stopAccessingSecurityScopedResource()
+        }
 
         do {
             if fileManager.fileExists(atPath: newFileURL.path) {
@@ -47,4 +74,9 @@ struct ContentView: View {
             print("Error adding user song: \(error)")
         }
     }
+}
+
+#Preview {
+    ContentView()
+        .environmentObject(SongLibrary())
 }
