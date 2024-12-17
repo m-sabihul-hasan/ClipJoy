@@ -14,33 +14,44 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List(library.songs) { song in
-                Text(song.title)
-            }
-            .toolbar {
-                ToolbarItem(placement: .principal) {
+            ZStack (alignment: .topLeading){
+                List(library.songs) { song in
+                    NavigationLink(destination: PlayerView(song: song)) {
+                        Text(song.title)
+                    }
+                }
+                //            .navigationTitle("Songs Available")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            showingImporter = true
+                        }) {
+                            Image(systemName: "plus")
+                        }
+                    }
+                }
+                .sheet(isPresented: $showingImporter) {
+                    SongImporter { selectedURL in
+                        if let url = selectedURL {
+                            DispatchQueue.main.async {
+                                addUserSong(from: url, to: library)
+                            }
+                        }
+                    }
+                }
+                
+                VStack(alignment: .leading) {
                     HStack {
                         Image(systemName: "music.note.list")
+                            .resizable()
+                            .frame(width: 25, height: 25)
                         Text("My Songs")
-                            .font(.headline)
+                            .font(.largeTitle.bold())
                     }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        showingImporter = true
-                    }) {
-                        Image(systemName: "plus")
-                    }
+                    .padding()
+                    .offset(x: 10 ,y: -35)
                 }
             }
-            .sheet(isPresented: $showingImporter) {
-                SongImporter { selectedURL in
-                    if let url = selectedURL {
-                        addUserSong(from: url, to: library)
-                    }
-                }
-            }
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
 
