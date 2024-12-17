@@ -13,7 +13,7 @@ class SongLibrary: ObservableObject {
 
     init() {
         loadDefaultSongs()
-        loadUserSongs() // If you still want user uploads
+//        loadUserSongs() // If you still want user uploads
     }
 
     private func loadDefaultSongs() {

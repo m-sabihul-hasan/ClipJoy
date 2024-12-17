@@ -18,8 +18,9 @@ struct PlayerView: View {
     @State private var isSeeking = false
     @State private var timeObserverToken: Any?
     @State private var isReady = false
-
+    
     @State private var statusObservation: NSKeyValueObservation?
+    @State private var showCameraView = false
 
     var body: some View {
         VStack(spacing: 20) {
@@ -44,7 +45,7 @@ struct PlayerView: View {
                 }
                 .padding()
             }
-            
+
             Slider(value: $currentTime, in: 0...max(duration, 0.1), onEditingChanged: { editing in
                 if !editing {
                     guard let player = audioPlayer.player else { return }
@@ -65,7 +66,6 @@ struct PlayerView: View {
             }
             .font(.subheadline)
             .padding(.horizontal)
-
         }
         .offset(y: -40)
         .padding()
@@ -73,10 +73,16 @@ struct PlayerView: View {
             setupPlayer()
         }
         .onDisappear {
-            // Stop playback and clean up when leaving this view
             audioPlayer.pause()
             audioPlayer.player = nil
             removePeriodicTimeObserver()
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink(destination: CameraView()) {
+                    Image(systemName: "camera")
+                }
+            }
         }
     }
 

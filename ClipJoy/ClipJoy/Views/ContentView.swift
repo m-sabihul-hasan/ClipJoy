@@ -57,7 +57,10 @@ struct ContentView: View {
 
     func addUserSong(from sourceURL: URL, to library: SongLibrary) {
         let fileManager = FileManager.default
-        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+        guard let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            print("Could not find documents directory.")
+            return
+        }
         let newFileURL = documentsURL.appendingPathComponent(sourceURL.lastPathComponent)
 
         // Start accessing the security-scoped resource
@@ -67,20 +70,28 @@ struct ContentView: View {
         }
 
         defer {
-            // Make sure to stop accessing after the operation is complete
             sourceURL.stopAccessingSecurityScopedResource()
         }
 
         do {
+            // Remove existing file if present
             if fileManager.fileExists(atPath: newFileURL.path) {
                 try fileManager.removeItem(at: newFileURL)
             }
+
+            // Copy the file from the selected URL to documents directory
             try fileManager.copyItem(at: sourceURL, to: newFileURL)
 
-            let title = sourceURL.deletingPathExtension().lastPathComponent.capitalized
-            let newSong = Song(title: title, fileURL: newFileURL)
-            library.songs.append(newSong)
-            library.saveUserSongs()
+            // Verify the file was copied
+            if fileManager.fileExists(atPath: newFileURL.path) {
+                let title = sourceURL.deletingPathExtension().lastPathComponent.capitalized
+                let newSong = Song(title: title, fileURL: newFileURL)
+                library.songs.append(newSong)
+                library.saveUserSongs()
+                print("Successfully added new song: \(title)")
+            } else {
+                print("Error: File not found after copying at \(newFileURL.path)")
+            }
         } catch {
             print("Error adding user song: \(error)")
         }
